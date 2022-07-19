@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Блог на Django</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Блог на DJANGO</h1>
+        </div>
+    </div>
+
+</header>
+
+<h1 class="title-form-send">Публикация блога</h1>
+<section>
+     <div class="container-sup">
+        <div class="form-send-up">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <label>Название статьи</label>
+                    <input type="text" name="name-publication" required>
+                    <label>Ссылка на блог</label>
+                    <input type="text" name="link-publication" required>
+                    <label>Текст блога</label>
+                    <textarea name="text-publication" required></textarea>
+                    <label>Теги(через пробел)</label>
+                    <input type="text" name="tags-publication" required>
+                    <div class="example-2">
+                      <div class="form-group">
+                        <input type="file" name="file" id="image-publication" class="input-file">
+                        <label for="image-publication" class="btn btn-tertiary js-labelFile">
+                          <i class="icon fa fa-check"></i>
+                          <span class="js-fileName">Загрузить файл</span>
+                        </label>
+                      </div>
+                     </div>
+                    <button type="submit">Опубликовать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+
+<h1 class="title-form-send">Наши блоги</h1>
+{% for p in context%}
+<section>
+    <div class="container-sup-sup">
+        <div class="publication-send-up">
+            <div class="publication-image">
+                <img class ="photo" src="{{ p.image }}">
+            </div>
+            <div class="publication-article">
+                <h1 class="title-sup">
+                    {{ p.article }}
+                </h1>
+            </div>
+            <div class="publication-data">
+                {{ p.data }}
+                <hr class="top-sup">
+            </div>
+            <div class="publication-tags">
+                {{ p.tags }}
+                <hr class="top-sup">
+            </div>
+            <div class="publication-text">
+                {{ p.content }} + <a href="/blog?blog={{ p.UrlPublication }}">Перейти</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endfor %}
+
+<footer>
+<div class="container-sup-sup-sup-footer">
+        <div class="footer-sup">
+            <h1 class="footer-text">Блог на DJANGO | 2022</h1>
+        </div>
+        <div class="social-icons">
+            <a href="#"><img class="discord" src="{% static 'img/Discord.svg' %}"></a>
+            <a href="#"><img class="github" src="{% static 'img/GitHub.svg' %}"></a>
+            <a href="#"><img class="telegram" src="{% static 'img/Telegram.svg' %}"></a>
+            <a href="#"><img class="vk" src="{% static 'img/VK.svg' %}"></a>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>
